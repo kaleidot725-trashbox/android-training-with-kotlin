@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="NumberOne">壱</string>
+    <string name="NumberTwo">弐</string>
+    <string name="NumberThree">参</string>
+    <string name="NumberFour">肆</string>
+    <string name="NumberFive">伍</string>
+</resources>
