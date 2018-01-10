@@ -17,15 +17,15 @@ class MainActivity : Activity() {
 
         var clikableItems = ArrayList<ClickableAdapter.ClickableItem>()
         clikableItems.add(ClickableAdapter.ClickableItem(getString(R.string.intent_1),
-                ItemClickListener(IntentActivity1::class.java))
-        )
+                ItemClickListener(IntentActivity1::class.java)))
         clikableItems.add(ClickableAdapter.ClickableItem(getString(R.string.intent_2),
                 ItemClickListener(IntentActivity2::class.java)))
+        clikableItems.add(ClickableAdapter.ClickableItem(getString(R.string.notification),
+                ItemClickListener(NotificationActivity::class.java)))
 
         var adapter = ClickableAdapter(this, clikableItems)
         val lv : ListView= findViewById(R.id.practiceList)
         lv.adapter = adapter
-
     }
 
     private class ItemClickListener(activityClass : Class<out Activity>) : View.OnClickListener{
