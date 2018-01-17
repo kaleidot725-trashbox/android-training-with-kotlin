@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ListViewPractice</string>
+    <string name="scroll_button_text">Scroll of top</string>
+</resources>
