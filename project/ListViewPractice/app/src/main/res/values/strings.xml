@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">ListViewPractice</string>
     <string name="scroll_button_text">Scroll of top</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_setting_menu">Add</string>
+    <string name="remove_setting_menu">Remove</string>
 </resources>
