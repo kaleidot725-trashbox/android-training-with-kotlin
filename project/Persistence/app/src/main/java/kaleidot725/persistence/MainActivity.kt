@@ -6,9 +6,10 @@ import android.os.Bundle
 import android.content.SharedPreferences
 import android.widget.TextView
 import android.view.View
+import android.widget.Toast
 
-class MainActivity : AppCompatActivity() {
-
+class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
+    var mSharedPreferences : SharedPreferences? = null
     var mName : String? = null
     var mAge : Int? = null
 
@@ -16,51 +17,31 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // 前回の設定値を読み込む
-        readPerson()
+        mSharedPreferences = getSharedPreferences("person", MODE_PRIVATE)
+        mSharedPreferences?.registerOnSharedPreferenceChangeListener(this)
+        mName = mSharedPreferences?.getString("name", "0")
+        mAge = mSharedPreferences?.getInt("age", 0)
 
-        // 設定値を表示する
         val nameView = findViewById<View>(R.id.Name) as TextView
         nameView.text = mName
+
         val ageView = findViewById<View>(R.id.Age) as TextView
-        ageView.text = mAge?.toString()
+        ageView.text = mAge.toString()
 
-        // 設定値を更新する
-        if (mAge == null) {
-            mName = "0"
-            mAge = 0
-        }else {
-            mAge = mAge?.inc()
-            mName += mAge?.toString()
-        }
-
-        // 設定を書き込む
-        savePerson()
+        val nextAge : Int = mAge?.inc() ?: 0
+        val nextName : String = mName + nextAge.toString()
+        val editor : SharedPreferences.Editor? = mSharedPreferences?.edit()
+        editor?.putString("name", nextName)
+        editor?.putInt("age", nextAge)
+        editor?.commit()
     }
 
-    fun savePerson() : Boolean {
-        // 第1引数に設定ファイルの名称を指定、第2引数にファイルの操作モードを指定する
-        val sp : SharedPreferences = getSharedPreferences("person", Context.MODE_PRIVATE)
-        val editor : SharedPreferences.Editor = sp.edit()
-
-        // valueを設定する
-        if (mName != null) {
-            editor.putString("name", mName as String)
-        }
-
-        if (mAge != null) {
-            editor.putInt("age", mAge as Int)
-        }
-
-        // commitまたはapplyで保存する
-        // applyは保存の完了を待たずに処理が戻ってくるので、処理が完了したか判断できない。
-        // 今回はサンプルに従いcommitを利用する
-        return editor.commit()
+    override fun onDestroy() {
+        mSharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
+        super.onDestroy()
     }
 
-    fun readPerson() {
-        val sp : SharedPreferences = getSharedPreferences("person", Context.MODE_PRIVATE)
-        mName = sp.getString("name", "0")
-        mAge = sp.getInt("age", 0)
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        Toast.makeText(this, "update shared preferences $key", Toast.LENGTH_LONG).show()
     }
 }
