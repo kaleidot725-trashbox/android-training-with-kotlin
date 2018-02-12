@@ -19,6 +19,9 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<String> 
         val manager = getSupportLoaderManager()
         val argsForLoader = Bundle()
         manager.initLoader(0, argsForLoader, this)
+
+        // 非同期処理を開始する
+        MyAsyncTask(applicationContext).execute()
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<String>? {
