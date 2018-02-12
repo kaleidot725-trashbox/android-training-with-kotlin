@@ -1,21 +1,21 @@
 package kaleidot725.loader
 
-import android.content.Loader
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v4.app.LoaderManager
+import android.support.v4.content.Loader
 import android.widget.Toast
 
-class MainActivity : AppCompatActivity(), android.app.LoaderManager.LoaderCallbacks<String> {
-
+class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<String> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val manager = getSupportLoaderManager()
         val argsForLoader = Bundle()
-        manager.initLoader(0, argsForLoader, this as LoaderManager.LoaderCallbacks<String>)
+
+        // 読み込むローダのIDと任意の引数を指定する
+        manager.initLoader(0, argsForLoader, this)
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<String>? {

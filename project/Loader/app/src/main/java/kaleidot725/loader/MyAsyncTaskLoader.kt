@@ -1,7 +1,7 @@
 package kaleidot725.loader
 
-import android.content.AsyncTaskLoader
 import android.content.Context
+import android.support.v4.content.AsyncTaskLoader
 import android.util.Log
 import kotlin.concurrent.thread
 
@@ -14,7 +14,7 @@ class MyAsyncTaskLoader(context : Context) : AsyncTaskLoader<String>(context){
 
     override fun loadInBackground(): String {
         try {
-            Thread.sleep(100)
+            Thread.sleep(1000)
         }
         catch (e : InterruptedException) {
             Log.e(TAG, "Interrupted!:", e)
